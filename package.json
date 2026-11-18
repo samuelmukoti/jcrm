@@ -10,7 +10,8 @@
     "test:api": "./mvnw -B test",
     "test:browser": "npm --prefix frontend run test:e2e --",
     "screenshots": "node scripts/capture.mjs",
-    "check:ui": "node scripts/check-ui.mjs"
+    "check:ui": "node scripts/check-ui.mjs",
+    "test:containers": "node scripts/test-containers.mjs"
   },
   "engines": {
     "node": ">=22.12.0"

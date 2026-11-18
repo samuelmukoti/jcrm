@@ -40,3 +40,5 @@ jobs:
         run: npm test
       - name: Package showcase
         run: npm run package
+      - name: Verify preview and production containers
+        run: npm run test:containers

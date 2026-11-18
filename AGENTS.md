@@ -20,13 +20,15 @@ A working CRM showcase: Java 25/Spring Boot API, React/TypeScript UI, SQLite per
 - Browser tests: `npm run test:browser` (install Playwright browsers first)
 - All checks: `npm test`
 - Package frontend and executable JAR: `npm run package`
+- Container build/runtime checks: `npm run test:containers` (requires Docker Engine/Compose)
 
 ## Structure
 
 - `backend/`: Maven module, Spring Boot services/API, JDBC repository, versioned SQLite migrations, JUnit integration tests.
 - `frontend/`: React routes/components, responsive styles, locked npm dependencies, Playwright tests.
-- `scripts/`: local development orchestration.
-- `docs/`: verification evidence and PostgreSQL migration notes.
+- `scripts/`: local development orchestration and container checks.
+- `Dockerfile`, `docker-compose.*.yml`, `docker/`: packaged runtime, preview/production deployment, and health check.
+- `docs/`: deployment instructions, verification evidence, and PostgreSQL migration notes.
 - `PLAN.md`: showcase design and delivery contract.
 
 ## Demo boundaries

@@ -26,6 +26,12 @@ The complete `npm test` command passes all ten backend tests and all 21 browser 
 
 Coverage includes the primary Acme story; editable, source-backed follow-up drafts; explicit note/task saves; forecast updates and undo; account/contact creation and editing; search; task completion/reopening/editing; failed-save recovery; stale-edit protection; dates at quarter boundaries; and unsupported AI questions. The failed-save workflow also checks form behavior when `crypto.randomUUID` is unavailable.
 
+## Container deployment checks
+
+The multi-stage Docker build passed the frontend production build and all ten Java integration tests. `npm run test:containers` passed for both preview and production Compose files, including healthy startup, non-root UID 10001, automatic workspace seeding, UI assets, and deep-link responses. The production configuration also passed read-only root filesystem, saved-task persistence across container recreation, and SQLite online backup/integrity checks. The tests clean up only their uniquely named projects and volumes.
+
+The preview file passed DevStation's actual Compose parser with one public `jcrm` service on port 8080, a 512 MB/1 CPU resource limit, a named SQLite volume, and the intended health check. This validates the configuration against the platform implementation; a hosted preview has not been launched. See [DEPLOYMENT.md](DEPLOYMENT.md) for exact settings and commands.
+
 ## Accessibility and responsive layout
 
 All 18 automated axe scans returned **zero violations** for the selected WCAG A/AA rules. They cover Overview, Pipeline, Relationships, My work, Juno, and the primary deal at 1440, 1024, and 390 CSS pixels.

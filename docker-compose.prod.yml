@@ -1,0 +1,48 @@
+# Single-host deployment of the current demo. Put the loopback listener
+# behind a trusted HTTPS reverse proxy. SQLite requires one app replica.
+services:
+  jcrm:
+    image: ${JCRM_IMAGE:-jcrm:local}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${HTTP_BIND:-127.0.0.1}:${HTTP_PORT:-8080}:8080"
+    environment:
+      PORT: "8080"
+      JCRM_DB_PATH: /data/jcrm.db
+      SERVER_FORWARD_HEADERS_STRATEGY: ${SERVER_FORWARD_HEADERS_STRATEGY:-framework}
+    volumes:
+      - jcrm-data:/data
+    restart: unless-stopped
+    init: true
+    read_only: true
+    # SQLite JDBC extracts its native library here; this mount must allow exec.
+    tmpfs:
+      - /tmp:rw,exec,nosuid,nodev,size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 256
+    stop_grace_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: "2.0"
+          pids: 256
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "/app/healthcheck.sh"]
+      interval: 15s
+      timeout: 5s
+      start_period: 45s
+      retries: 4
+
+volumes:
+  jcrm-data:

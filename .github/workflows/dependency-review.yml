@@ -1,0 +1,30 @@
+name: Dependency Review
+
+# Surface PRs that introduce vulnerable dependencies. Advisory, not blocking:
+# the dependency-review action errors out on repos that don't have the
+# Dependency Graph + GitHub Advanced Security enabled (most private repos),
+# which would otherwise leave a permanently-red required check. `continue-on-
+# error` keeps the scan + PR comment while letting the check pass, so the
+# review surfaces issues to humans without blocking CI on unsupported repos.
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        continue-on-error: true
+        with:
+          fail-on-severity: high
+          comment-summary-in-pr: on-failure

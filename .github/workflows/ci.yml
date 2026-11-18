@@ -1,0 +1,39 @@
+name: jcrm CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Build (Maven, fallback to Gradle)
+        run: |
+          if [ -f "pom.xml" ]; then
+            mvn --batch-mode -Dmaven.test.skip=false test
+          elif [ -f "build.gradle" ] || [ -f "build.gradle.kts" ]; then
+            ./gradlew test
+          else
+            echo "No Maven or Gradle build file found"
+            exit 1
+          fi

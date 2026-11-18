@@ -40,6 +40,17 @@ Set `PORT` to change the packaged app's port. Set `JCRM_DB_PATH` to an absolute 
 
 `GET /api/health` returns readiness once database migrations and startup have completed. Critical fonts and icons are bundled; the running showcase needs no image CDN or AI account.
 
+## Docker and DevStation LivePreview
+
+For DevStation LivePreview, select Compose, `docker-compose.preview.yml`, and public service `jcrm`. No `.env` settings are required. The image serves both the UI and API on port 8080 and stores SQLite in a named volume.
+
+```bash
+docker compose -f docker-compose.preview.yml up -d --build --wait
+docker compose -f docker-compose.preview.yml port jcrm 8080
+```
+
+Open the reported host port. For single-host production hosting, use `docker-compose.prod.yml` with `.env.production.example`. See [deployment instructions](docs/DEPLOYMENT.md) for setup, updates, proxy settings, data persistence, and backups.
+
 ## Verify
 
 ```bash
@@ -54,6 +65,7 @@ Separate checks:
 ./mvnw test
 npm run build
 npm run test:browser
+npm run test:containers # Requires Docker; builds and checks both Compose configurations.
 ```
 
 Browser tests launch the development servers when needed and use isolated sessions. To verify an already running packaged app:

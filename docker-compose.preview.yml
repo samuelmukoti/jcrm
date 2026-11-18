@@ -1,0 +1,33 @@
+# DevStation LivePreview: one public service, an image-built frontend/API,
+# and a named SQLite volume. No host bind mounts or fixed host ports.
+services:
+  jcrm:
+    image: ${JCRM_IMAGE:-jcrm:preview}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080"
+    x-preview:
+      public: true
+    environment:
+      PORT: "8080"
+      JCRM_DB_PATH: /data/jcrm.db
+      SERVER_FORWARD_HEADERS_STRATEGY: framework
+    volumes:
+      - jcrm-data:/data
+    restart: on-failure
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: "1.0"
+    healthcheck:
+      test: ["CMD", "/app/healthcheck.sh"]
+      interval: 15s
+      timeout: 5s
+      start_period: 45s
+      retries: 4
+
+volumes:
+  jcrm-data:

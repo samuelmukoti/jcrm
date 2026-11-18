@@ -62,7 +62,7 @@ jobs:
         # most private repos don't have. Keep the upload best-effort — the
         # scan above (`--error`) is the real gate and still fails on findings.
         continue-on-error: true
-        uses: github/codeql-action/upload-sarif@9418214df1f2c4b8128c770156c409013b07d6b9 # v3
+        uses: github/codeql-action/upload-sarif@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3
         with:
           sarif_file: semgrep.sarif
 
@@ -104,6 +104,6 @@ jobs:
         # Code-scanning upload needs GitHub Advanced Security; keep it
         # best-effort so the check doesn't hard-fail on repos without it.
         continue-on-error: true
-        uses: github/codeql-action/upload-sarif@9418214df1f2c4b8128c770156c409013b07d6b9 # v3
+        uses: github/codeql-action/upload-sarif@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3
         with:
           sarif_file: trivy-results.sarif

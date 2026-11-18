@@ -53,7 +53,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Semgrep
-        run: semgrep --config=auto --sarif --output semgrep.sarif --error
+        # Print findings as text in the job log and also write SARIF for upload.
+        run: semgrep --config=auto --sarif-output=semgrep.sarif --error
 
       - name: Upload Semgrep SARIF
         if: always()

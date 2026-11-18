@@ -34,6 +34,7 @@ jobs:
           elif [ -f "build.gradle" ] || [ -f "build.gradle.kts" ]; then
             ./gradlew test
           else
-            echo "No Maven or Gradle build file found"
-            exit 1
+            # Repo has no Java project yet; don't keep CI red for that.
+            # Remove this branch (make it exit 1) once a build file exists.
+            echo "::notice::No Maven or Gradle build file found; skipping build"
           fi

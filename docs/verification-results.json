@@ -1,0 +1,103 @@
+{
+  "recordedAt": "2026-11-18T04:37:22.396Z",
+  "node": "v24.15.0",
+  "accessibility": [
+    {
+      "path": "/",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "path": "/pipeline",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "path": "/relationships",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "path": "/work",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "path": "/ai",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "path": "/deals/:id",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "path": "/",
+      "width": 1024,
+      "violations": []
+    },
+    {
+      "path": "/pipeline",
+      "width": 1024,
+      "violations": []
+    },
+    {
+      "path": "/relationships",
+      "width": 1024,
+      "violations": []
+    },
+    {
+      "path": "/work",
+      "width": 1024,
+      "violations": []
+    },
+    {
+      "path": "/ai",
+      "width": 1024,
+      "violations": []
+    },
+    {
+      "path": "/deals/:id",
+      "width": 1024,
+      "violations": []
+    },
+    {
+      "path": "/",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "path": "/pipeline",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "path": "/relationships",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "path": "/work",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "path": "/ai",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "path": "/deals/:id",
+      "width": 390,
+      "violations": []
+    }
+  ],
+  "performance": {
+    "profile": "Chromium, 390x844 CSS px, cold cache, 150 ms latency, 1.6 Mbps download, 750 Kbps upload, 4x CPU slowdown; localhost packaged app",
+    "lcpMs": 1764,
+    "cls": 0.018,
+    "workspaceApiP95Ms": 9.9,
+    "apiRequests": 50
+  }
+}

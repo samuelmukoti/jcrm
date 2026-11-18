@@ -6,3 +6,20 @@ build/
 .iml
 *.log
 .env
+node_modules/
+dist/
+data/
+*.db
+*.db-wal
+*.db-shm
+playwright-report/
+test-results/
+.env.local
+*.tsbuildinfo
+.env.*.local
+
+# Generated local workspace state
+.claude_settings.json
+.devstation-security.json
+.devstation/github/
+.devstation/ideation/

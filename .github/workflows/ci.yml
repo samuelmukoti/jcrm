@@ -20,21 +20,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-
       - name: Setup JDK
         uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4
         with:
           distribution: temurin
           java-version: "25"
-
-      - name: Build (Maven, fallback to Gradle)
-        run: |
-          if [ -f "pom.xml" ]; then
-            mvn --batch-mode -Dmaven.test.skip=false test
-          elif [ -f "build.gradle" ] || [ -f "build.gradle.kts" ]; then
-            ./gradlew test
-          else
-            # Repo has no Java project yet; don't keep CI red for that.
-            # Remove this branch (make it exit 1) once a build file exists.
-            echo "::notice::No Maven or Gradle build file found; skipping build"
-          fi
+          cache: maven
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install frontend dependencies
+        run: npm ci --prefix frontend
+      - name: Install test browsers
+        run: npm exec --prefix frontend -- playwright install --with-deps chromium webkit firefox
+      - name: Verify API, frontend, and browser workflows
+        run: npm test
+      - name: Package showcase
+        run: npm run package

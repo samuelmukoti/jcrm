@@ -1,31 +1,34 @@
 # jcrm
 
-> 
-
-This file is the agent's first-touch context for the project. Keep it short, current, and honest.
-
-## Toolchain
-
-**Java** — Temurin OpenJDK 25 with Maven, Gradle, Kotlin, JUnit.
+A working CRM showcase: Java 25/Spring Boot API, React/TypeScript UI, SQLite persistence, and contextual demo intelligence through Juno.
 
 ## Conventions
 
-- Run tests before claiming any change is complete.
+- Run tests before claiming a change is complete.
 - Prefer the smallest change that makes the test pass.
-- Match the existing code style; don't introduce unrelated formatting churn.
-- When in doubt, ask the user a single clarifying question rather than guessing.
+- Match the existing code style; avoid unrelated formatting churn.
+- Ask one clarifying question when a consequential requirement is ambiguous.
+- Use integer cents for money and preserve workspace ownership on every record/query.
+- Keep applied database migrations immutable; add a version for schema changes.
+- AI suggestions require an explicit user action before writing CRM data.
 
 ## Commands
 
-- Build (Maven): `mvn package`
-- Test (Maven): `mvn test`
-- Build (Gradle): `./gradlew build`
-- Test (Gradle): `./gradlew test`
+- Develop: `npm run dev` (UI 5173, API 8080; installs frontend dependencies on first run)
+- Backend tests: `./mvnw test`
+- Frontend type check/build: `npm run build`
+- Browser tests: `npm run test:browser` (install Playwright browsers first)
+- All checks: `npm test`
+- Package frontend and executable JAR: `npm run package`
 
-## Project structure
+## Structure
 
-(Describe the layout as the project grows. The agent will update this.)
+- `backend/`: Maven module, Spring Boot services/API, JDBC repository, versioned SQLite migrations, JUnit integration tests.
+- `frontend/`: React routes/components, responsive styles, locked npm dependencies, Playwright tests.
+- `scripts/`: local development orchestration.
+- `docs/`: verification evidence and PostgreSQL migration notes.
+- `PLAN.md`: showcase design and delivery contract.
 
-## Open questions
+## Demo boundaries
 
-(Track ambiguous decisions here. The agent reads them and asks the user.)
+Juno uses deterministic demo intelligence. A live provider, external communications, and production identity are future integrations. Every visitor has a separate session workspace; reset must remain scoped to it.
